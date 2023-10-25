@@ -1,0 +1,84 @@
+#include<iostream>
+
+using namespace std;
+
+int main() {
+
+	setlocale(LC_ALL, "rus");
+
+	int col, row;
+
+	cout << "введите размер матрицы" << endl;
+
+	cin >> row;
+	cin >> col;
+
+	int** matrix_origin;
+	int** matrix_sorted;
+
+	int* sum = new int[row]();	    // Выделяем память под массив сумм зачений
+
+	matrix_origin = new int* [row];			// Выделяем память под массив исходной матрицы
+	for (int i = 0; i < row; i++) {
+		matrix_origin[i] = new int[col];
+	};
+
+
+	matrix_sorted = new int* [row];			// Выделяем память под массив отсортированной матрицы
+	for (int i = 0; i < row; i++) {
+		matrix_sorted[i] = new int[col];
+	};
+
+	cout << endl;
+	cout << "Введите значение матрицы" << endl;
+
+	for (int i = 0; i < row; i++) { // Ввод исходной матрицы
+		for (int j = 0; j < col; j++) {
+			cin >> matrix_origin[i][j];
+			sum[i] += matrix_origin[i][j];
+		}
+		cout << endl;
+	}
+
+	cout << "Ваша матрица: " << endl;
+
+	for (int i = 0; i < row; i++) { // Выводим исходную матрицу
+		for (int j = 0; j < col; j++) {
+			cout << matrix_origin[i][j] << " ";
+		}
+		cout << endl;
+	}
+
+
+	for (int i = 0; i < row; i++)   // Алгоритм сортировки
+	{
+		int min = 2147483647;
+		int index_min = 0;
+		for (int j = 0; j < row; j++)
+		{
+			if (min > sum[j])
+			{
+				min = sum[j];
+				index_min = j;
+			}
+		}
+		sum[index_min] = 2147483647;
+
+		for (int j = 0; j < col; j++) {
+			matrix_sorted[i][j] = matrix_origin[index_min][j];
+		}
+	}
+
+	cout << endl;
+	cout << "Отсортированная матрица: " << endl;
+
+	for (int i = 0; i < row; i++) { // Вывод результата
+		for (int j = 0; j < col; j++) {
+			cout << matrix_sorted[i][j] << " ";
+		}
+		cout << endl;
+	}
+
+
+	return 0;
+}
